@@ -2,12 +2,11 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import bcrypt from 'bcrypt';
-
-import Invoice from './Invoice.js';
-import Stock from './Stock.js';
+import Invoice from './Invoice.js'; 
+import Stock from './Stock.js'
 import User from './User.js';
 
+import bcrypt from 'bcrypt';
 
 const app = express();
 const PORT = 5000;
@@ -180,10 +179,15 @@ app.get('/api/stocks',async(req,res)=>{
 })
 app.post('/api/AddStock',async(req,res)=>{
     try{
-        const {Item,Qty} = req.body;
+        const {Item,Qty,Date,Dealer,Mrp,Sp} = req.body;
         const newStock=new Stock ({
             Item:Item,
-            Qty:Qty
+            Qty:Qty,
+            Date,
+            Dealer,
+            Mrp,
+            Sp
+
         })
         const savedStock = await newStock.save();
         res.status(201).json(savedStock);
@@ -193,7 +197,24 @@ app.post('/api/AddStock',async(req,res)=>{
     }
 })
 
+app.put('/api/stocks/:id', async (req, res) => {
+    try {
+        const { id } = req.params; // Get the stock ID from the request parameters
+        const updatedStock = req.body; // Get the updated stock data from the request body
 
+        // Find the stock by ID and update it
+        const stock = await Stock.findByIdAndUpdate(id, updatedStock, { new: true });
+        
+        if (!stock) {
+            return res.status(404).json({ message: 'Stock not found' });
+        }
+
+        res.status(200).json(stock); // Respond with the updated stock data
+    } catch (error) {
+        console.error("Error updating stock:", error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
 app.get('/api/server-time', (req, res) => {
     res.json({ time: new Date() });
     });
