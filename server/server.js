@@ -14,7 +14,7 @@ const router = express.Router();
 const saltRounds = 10
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://Jack:Jack@jackpotmenswear.vvelo.mongodb.net/?retryWrites=true&w=majority&appName=Jackpotmenswear', {
+mongoose.connect('mongodb+srv://jackpot:jackpot@cluster0.84kv7m8.mongodb.net/jackpot?retryWrites=true&w=majority&appName=Cluster0', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -26,7 +26,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors()); // Allow CORS for frontend
 
-// Middleware to check authentication (using cookies)
 const checkAuth = (req, res, next) => {
     const token = req.cookies.authToken;
     if (!token) {
@@ -170,13 +169,26 @@ app.get('/api/invoices',async (req, res) => {
     // Stock Apisssss
 app.get('/api/stocks',async(req,res)=>{
     try{
-        const stock=await Stock.find()
+        const stock=await Stock.find({ Qty: { $gt: 0 } })
+        
         res.json(stock)
     }catch(error){
         console.error('Error fetching invoices:', error);
         res.status(500).send('Server error');
     }
 })
+
+app.get('/api/allstocks',async(req,res)=>{
+    try{
+        const stock=await Stock.find()
+        
+        res.json(stock)
+    }catch(error){
+        console.error('Error fetching invoices:', error);
+        res.status(500).send('Server error');
+    }
+})
+
 app.post('/api/AddStock',async(req,res)=>{
     try{
         const {Item,Qty,Date,Dealer,Mrp,Sp} = req.body;
