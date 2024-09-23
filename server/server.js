@@ -14,7 +14,7 @@ const router = express.Router();
 const saltRounds = 10
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://Jackpot:Jackpot@jackpotmenswear.vvelo.mongodb.net/test?retryWrites=true&w=majority&appName=Jackpotmenswear', {
+mongoose.connect('mongodb+srv://Jack:Jack@jackpotmenswear.vvelo.mongodb.net/test?retryWrites=true&w=majority&appName=Jackpotmenswear', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
