@@ -169,7 +169,7 @@ app.get('/api/invoices',async (req, res) => {
     // Stock Apisssss
 app.get('/api/stocks',async(req,res)=>{
     try{
-        const stock=await Stock.find({ Qty: { $gt: 0 } })
+        const stock=await Stock.find()
         
         res.json(stock)
     }catch(error){
