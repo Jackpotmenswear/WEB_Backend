@@ -171,7 +171,7 @@ app.get('/api/stocks',async(req,res)=>{
     try{
         const stock=await Stock.find()
         
-        res.json(stock)
+        res.json(stock.sort((a,b)=>a.Qty-b.Qty))
     }catch(error){
         console.error('Error fetching invoices:', error);
         res.status(500).send('Server error');
