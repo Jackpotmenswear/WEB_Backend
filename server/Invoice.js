@@ -14,6 +14,7 @@ const invoiceSchema = new Schema({
     ListOfItem: [String],
     ListOfQty: [Number],
     ListOfPrice: [Number],
+    ListOfMrp:[Number],
     TotalAmount: Number
 });
 
