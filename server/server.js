@@ -31,7 +31,6 @@ const checkAuth = (req, res, next) => {
     if (!token) {
         return res.status(403).send('Unauthorized access');
     }
-    // Assume some token validation logic here
     next();
 };
 
@@ -58,27 +57,22 @@ app.post('/api/change-password', async (req, res) => {
     try {
         const { Email, Password, newPassword } = req.body;
 
-        // Find the user by email
         const user = await User.findOne({ Email });
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
 
-        // Verify the current password
         const isPasswordValid = await bcrypt.compare(Password, user.Password);
         if (!isPasswordValid) {
             return res.status(401).json({ error: "Current password is incorrect" });
         }
 
-        // Validate new password (optional: add your custom validations here)
         if (newPassword.length < 8) {
             return res.status(400).json({ error: "New password must be at least 8 characters long" });
         }
 
-        // Hash the new password
         const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
-        // Update the user's password
         user.Password = hashedPassword;
         await user.save();
 
@@ -117,7 +111,7 @@ app.post('/api/invoicestock',async (req,res)=>{
 // invoice 
     app.post('/api/invoice', async (req, res) => {
         try {
-            const { PayeeName, date, Amount, payment,PhNo,Paymentmeth ,Discount,DiscountAmt,ListOfItem, ListOfQty, ListOfPrice, TotalAmount } = req.body;
+            const { PayeeName, date, Amount, payment,PhNo,Paymentmeth ,Discount,DiscountAmt,ListOfItem, ListOfQty, ListOfPrice, ListOfMrp, TotalAmount } = req.body;
             
             const invoiceNumber = `${Date.now()}`;
 
@@ -130,10 +124,11 @@ app.post('/api/invoicestock',async (req,res)=>{
                 DiscountAmt,
                 PhNo,
                 Paymentmeth,
-                Discount, // Use the generated invoice number
+                Discount,
                 ListOfItem,
                 ListOfQty,
                 ListOfPrice,
+                ListOfMrp,
                 TotalAmount
             });
     
