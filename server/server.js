@@ -17,7 +17,7 @@ const saltRounds = 10
 const mongosess=mongosession(session)
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://jackpot:jackpot@cluster0.84kv7m8.mongodb.net/jackpot?retryWrites=true&w=majority&appName=Cluster0', {
+mongoose.connect('mongodb+srv://Jack:Jack@jackpotmenswear.vvelo.mongodb.net/test?retryWrites=true&w=majority&appName=Jackpotmenswear', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -25,7 +25,7 @@ mongoose.connect('mongodb+srv://jackpot:jackpot@cluster0.84kv7m8.mongodb.net/jac
 .catch(err => console.log('MongoDB connection error:', err));
 
 const store =new mongosess({
-    uri:'mongodb+srv://jackpot:jackpot@cluster0.84kv7m8.mongodb.net/jackpot?retryWrites=true&w=majority&appName=Cluster0',
+    uri:'mongodb+srv://Jack:Jack@jackpotmenswear.vvelo.mongodb.net/test?retryWrites=true&w=majority&appName=Jackpotmenswear',
     collection:"mysession"
 })
 
