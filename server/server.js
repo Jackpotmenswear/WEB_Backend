@@ -65,7 +65,7 @@ app.use(session({
 
 const isAuth = async (req, res, next) => {
     // console.log(req.session)
-    if (req.session.userId && req.session.ip===req.ip) {
+    if (req.session.userId) {
         // User is authenticated
         next();
     } else {
