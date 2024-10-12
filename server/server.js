@@ -36,7 +36,7 @@ store.on('error', (error) => {
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin:'true',credentials:true})); 
+app.use(cors()); 
 
 app.use(session({
     secret:"hai ",
