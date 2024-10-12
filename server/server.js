@@ -63,7 +63,7 @@ const isAuth = async (req, res, next) => {
         next();
     } else {
         // User is not authenticated
-        res.status(401).json({ message: "Not authenticated" });
+        res.json({ message: "Not authenticated" });
     }
 };
 
