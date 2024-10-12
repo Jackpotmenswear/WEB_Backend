@@ -101,7 +101,7 @@ app.post('/api/login', async (req, res) => {
 
         const isPasswordValid = await bcrypt.compare(Password, user.Password);
         if (!isPasswordValid) return res.status(401).json({ error: "Invalid email or password" });
-        req.session.ip = req.ip
+        // req.session.ip = req.ip
         req.session.isAuth = true;
         req.session.userId = user._id;  // Store user ID in session
         await user.save();
