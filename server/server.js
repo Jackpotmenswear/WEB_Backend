@@ -36,7 +36,7 @@ store.on('error', (error) => {
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-const allowedOrigins = ['http://localhost:5173', 'https://jackpotmens.vercel.app'];
+const allowedOrigins = ['http://localhost', 'https://jackpotmens.vercel.app'];
 
 app.use(cors({
     origin: (origin, callback) => {
