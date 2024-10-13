@@ -41,6 +41,8 @@ const allowedOrigins = ['http://localhost', 'https://jackpotmens.vercel.app'];
 app.use(cors({
     origin: true,
     credentials: true,
+    methods:['GET','POST','PUT']
+
 }));
 
 app.use(session({
