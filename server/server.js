@@ -48,7 +48,7 @@ app.use(cors({
 app.use(session({
     secret:"hai ",
     resave:false,
-    saveUninitialized:false,
+    saveUninitialized:true,
     store:store,
     cookie: {
         maxAge: 1000*60*30 ,
