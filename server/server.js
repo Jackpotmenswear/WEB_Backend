@@ -54,7 +54,7 @@ app.use(session({
         maxAge: 1000*60*30 ,
         httpOnly: true, // This helps to protect against cross-site scripting attacks
         secure: true, // Make it true in production (with HTTPS)
-        sameSite: 'lax'
+        sameSite: 'none'
     }
 }))
 
