@@ -60,8 +60,8 @@ app.use(session({
 const isAuth = async (req, res, next) => {
     const sessionId = req.sessionID;
     // console.log(req.headers)
-    console.log(req.sessionID)
-    console.log(sessionId)
+    // console.log(req.sessionID)
+    // console.log(sessionId)
     if (req.session.userId || (sessionId && req.session.id === sessionId)) {
         // User is authenticated
         next();
@@ -238,7 +238,7 @@ app.get('/api/stocks',isAuth,async(req,res)=>{
     try{
         const stock=await Stock.find()
         
-        res.json(stock.sort((a,b)=> b.Qty-a.Qty)
+        res.json(stock.sort((a,b)=> b.Qty-a.Qty))
     }catch(error){
         console.error('Error fetching invoices:', error);
         res.status(500).send('Server error');
