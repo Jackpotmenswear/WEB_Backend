@@ -41,19 +41,17 @@ const allowedOrigins = ['http://localhost', 'https://jackpotmens.vercel.app'];
 app.use(cors({
     origin: true,
     credentials: true,
-    methods:['GET','POST','PUT']
-
 }));
 
 app.use(session({
     secret:"hai ",
     resave:false,
-    saveUninitialized:true,
+    saveUninitialized:false,
     store:store,
     cookie: {
         maxAge: 1000*60*30 ,
         httpOnly: true, // This helps to protect against cross-site scripting attacks
-        secure: true, // Make it true in production (with HTTPS)
+        secure: false, // Make it true in production (with HTTPS)
         sameSite: 'none'
     }
 }))
