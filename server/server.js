@@ -41,7 +41,6 @@ const allowedOrigins = ['http://localhost', 'https://jackpotmens.vercel.app'];
 app.use(cors({
     origin: true,
     credentials: true,
-    exposedHeaders: ['session-id']
 }));
 
 app.use(session({
@@ -58,11 +57,8 @@ app.use(session({
 }))
 
 const isAuth = async (req, res, next) => {
-    const sessionId = req.sessionID;
-    // console.log(req.headers)
-    // console.log(req.sessionID)
-    // console.log(sessionId)
-    if (req.session.userId || (sessionId && req.session.id === sessionId)) {
+    const sessionid=req.sessionID
+    if (req.session.userId || (sessionid && sessionid==req.session.id)) {
         // User is authenticated
         next();
     } else {
@@ -129,22 +125,27 @@ app.post('/api/change-password',isAuth, async (req, res) => {
     try {
         const { Email, Password, newPassword } = req.body;
 
+        // Find the user by email
         const user = await User.findOne({ Email });
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
 
+        // Verify the current password
         const isPasswordValid = await bcrypt.compare(Password, user.Password);
         if (!isPasswordValid) {
             return res.status(401).json({ error: "Current password is incorrect" });
         }
 
+        // Validate new password (optional: add your custom validations here)
         if (newPassword.length < 8) {
             return res.status(400).json({ error: "New password must be at least 8 characters long" });
         }
 
+        // Hash the new password
         const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
+        // Update the user's password
         user.Password = hashedPassword;
         await user.save();
 
@@ -237,8 +238,8 @@ app.get('/api/invoices',isAuth,async (req, res) => {
 app.get('/api/stocks',isAuth,async(req,res)=>{
     try{
         const stock=await Stock.find()
-        
-        res.json(stock.sort((a,b)=> b.Qty-a.Qty))
+        stock.sort((a,b)=>b.Qty-a.Qty)
+        res.json(stock)
     }catch(error){
         console.error('Error fetching invoices:', error);
         res.status(500).send('Server error');
