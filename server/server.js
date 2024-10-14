@@ -226,6 +226,7 @@ app.put('/api/invoice/:id',isAuth, async (req, res) => {
 });
 
 app.get('/api/invoices',isAuth,async (req, res) => {
+    console.log("invoices hitted")
     try {
         const invoices = await Invoice.find();
         res.json(invoices);
